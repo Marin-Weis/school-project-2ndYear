@@ -1,0 +1,37 @@
+/**
+ * Auteur : Weis
+ * Prénom : Marin
+ * Groupe : C1
+ */
+ 
+@startuml
+package company {
+
+    class Company {
+        - name : String
+        - address : String
+        - staff : ArrayList<Employee>
+    }
+
+    abstract class Employee {
+        # firstName : String
+        # lastName : String
+        + getFirstName() : String
+        + getLastName() : String
+        + toString() : String
+        + earnings() : double
+    }
+
+    class Boss <<final>> {
+        - weeklySalary : double
+        + setWeeklySalary(s : double) : void
+        + earnings() : double
+        + toString() : String
+    }
+
+    Company "1" o-- "0..*" Employee : staff
+    Employee <|-- Boss
+}
+@enduml
+
+

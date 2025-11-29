@@ -1,0 +1,38 @@
+/**
+ * Auteur : Weis
+ * Prénom : Marin
+ * Groupe : C1
+ */
+ 
+@startuml
+package liste {
+
+    interface Enumeration {
+        + hasMoreElements() : boolean
+        + nextElement() : Object
+    }
+
+    class ListeChainee {
+        - racine : Noeud
+        + enumerate() : Enumeration
+    }
+
+    class Noeud {
+        - contenu : Object
+        - suivant : Noeud
+        + contenu() : Object
+        + suivant() : Noeud
+    }
+
+    class ListeChaineeEnumeree {
+        - noeudCourant : Noeud
+        + ListeChaineeEnumeree(racine : Noeud)
+        + hasMoreElements() : boolean
+        + nextElement() : Object
+    }
+
+    ListeChaineeEnumeree ..|> Enumeration
+    ListeChainee "1" o-- "1" Noeud : racine
+    Noeud "1" --> "0..1" Noeud : suivant
+}
+@enduml

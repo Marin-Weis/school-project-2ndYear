@@ -1,0 +1,36 @@
+/**
+ * Marin WEIS
+ * BUT2 R2.04
+ * TP2
+ * Groupe C1
+ */
+//Exerice 1 : Diagramme de séquence emprunt de livre
+@startuml
+
+actor Alice
+
+participant "User" as user
+participant "Book" as book
+participant "Library" as library
+
+Alice -> user : borrowBook(book, library)
+user -> library : isBookAvailable(book)
+
+alt Livre disponible
+    user -> library : lendBook(book)
+    library -> library : isBookAvailable(book)
+
+    alt Livre toujours disponible
+        library -> library : inventory--\n(exemplaire − 1)
+    end
+
+    user --> Alice : "Vous avez emprunté le livre."
+    
+else Livre indisponible
+    user -> book : getTitle()
+    book --> user : title
+    user --> Alice : "Désolé, le livre \"" + title + "\" n'est pas disponible."
+end
+
+@enduml
+

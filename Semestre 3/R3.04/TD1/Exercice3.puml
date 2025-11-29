@@ -1,0 +1,35 @@
+/**
+ * Auteur : Weis
+ * Prénom : Marin
+ * Groupe : C1
+ */
+
+@startuml
+package pass {
+
+    interface StringHandler {
+        + processLetter(c : char) : void
+        + processDigit(c : char) : void
+        + processOther(c : char) : void
+    }
+
+    class PasswordSecurityHandler {
+        - length : int
+        - digit : boolean
+        - otherCharacter : boolean
+        + PasswordSecurityHandler()
+        + processLetter(c : char) : void
+        + processDigit(c : char) : void
+        + processOther(c : char) : void
+        + parse(s : String) : void
+        + securityLevel() : String
+    }
+
+    class PasswordSecurityHandlerClient {
+        + <u>main(args : String[]) : void</u>
+    }
+
+    StringHandler <|-- PasswordSecurityHandler
+    PasswordSecurityHandlerClient ..> PasswordSecurityHandler : «use»
+}
+@enduml

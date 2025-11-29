@@ -1,0 +1,66 @@
+/**
+ * Auteur : Weis
+ * Prénom : Marin
+ * Groupe : C1
+ */
+
+@startuml
+class Scanner <<external>> 
+
+package NIM {
+    abstract class Player {
+        # name : String
+        + getName() : String
+        + <i>takeTurn(heapSize : int) : int</i>
+    }
+    
+    class HumanPlayer {
+        + HumanPlayer(name : String, scanner : Scanner)
+        + takeTurn(heapSize : int) : int
+    }
+    
+    Scanner <-- HumanPlayer : - scanner
+    
+    PlayerStrategy <|-- HumanPlayer
+    
+    class ComputerPlayer {
+        + ComputerPlayer(name : String)
+        + takeTurn(heapSize : int) : int
+    }
+    
+    PlayerStrategy <|-- ComputerPlayer
+    
+    class NimGame {
+        - heapSize : int
+        - currentPlayerIndex : int
+        + NimGame(initialHeapSize : int, player1 : Player, player2 : Player)
+        + play() : void
+    }
+    
+    PlayerStrategy <-- NimGame : - players
+    
+    class NimGameMain {
+        + <u>main(args : String[])</u>
+    }
+
+    class ScoreBoard {
+        + displayScores() : void
+        + recordWin(playerName : String) : void
+    }
+
+    PlayerStrategy <|-- SmartComputerPlayer
+
+    class SmartComputerPlayer {
+        + SmartComputerPlayer(name : String)
+        + takeTurn(heapSize : int) : int
+    }
+
+    
+    HumanPlayer <|.. NimGameMain
+    ComputerPlayer <|.. NimGameMain
+    NimGame <|.. NimGameMain
+    Scanner <|.. NimGameMain
+    
+    
+}
+@enduml

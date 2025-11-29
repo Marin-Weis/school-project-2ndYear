@@ -1,0 +1,66 @@
+/**
+ * Marin WEIS
+ * BUT2 R2.04
+ * TP2
+ * Groupe C1
+*/
+
+/**
+* Un utilisateur premium essaie d’emprunter un livre non disponible, le réserve,
+* puis est notifié quand le livre est retourné par un autre utilisateur.
+* Créer le diagramme de séquence avec PlantUML pour le scénario décrit (avec
+* deux participants de type acteur et des objets de l’application).
+*/
+
+@startuml
+actor "Dylan (standard)" as Dylan
+actor "Vincent (premium)" as Vincent
+
+participant "User (Dylan)" as uDylan
+participant "User (Vincent)" as uVincent
+participant "Library" as lib
+participant "Book : 1984" as book
+participant "Reservation" as res
+
+
+== Dylan emprunte le livre ==
+
+Dylan -> uDylan : borrowBook(book, lib)
+uDylan -> lib : lendBook(uDylan, book, date)
+lib -> lib : isBookAvailable(book)
+
+alt Livre disponible
+    lib -> lib : inventory--\n(création Loan)
+    lib -> uDylan : addLoanToHistory(loan)
+    uDylan -> Dylan : "Vous avez emprunté le livre"
+end
+
+
+== Vincent tente d'emprunter le livre indisponible ==
+
+Vincent -> uVincent : borrowBook(book, lib)
+uVincent -> lib : lendBook(uVincent, book, date)
+lib -> lib : isBookAvailable(book)
+
+alt Livre indisponible
+    lib -> res : new Reservation(uVincent, book, date)
+    lib -> lib : addReservation(res)
+    uVincent -> Vincent : "Vous êtes sur la liste d'attente"
+end
+
+
+== Dylan retourne le livre ==
+
+Dylan -> uDylan : returnBook(book, lib)
+uDylan -> lib : returnBook(book)
+
+lib -> lib : isBookAvailable(book)
+lib -> lib : réservation pour ce livre ?
+
+alt Une réservation existe
+    lib -> uVincent : notification(book)
+    uVincent -> Vincent : "Le livre réservé est disponible"
+end
+@enduml
+
+

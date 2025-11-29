@@ -1,0 +1,66 @@
+/**
+ * Auteur : Weis
+ * Prénom : Marin
+ * Groupe : C1
+ */
+
+//Séquence d’un tour de jeu
+@startuml
+actor User
+participant " NimGame " as game
+participant " Human " as human
+participant " Scanner " as scanner
+User -> game : play ()
+loop heapsize > 0
+game -> human : takeTurn ( heapSize )
+loop move < 1 || move > 3 || move > heapSize
+human -> scanner : nextInt ()
+scanner --> human : move
+end
+human --> game : move
+game -> game : heapSize -= move
+game -> game : currentPlayerIndex = (currentPlayerIndex + 1) % players.length
+end
+@enduml
+
+
+// Séquence de fin de partie
+@startuml
+
+actor User
+participant " NimGame " as game
+participant " Human " as human
+participant " Scanner " as scanner
+User -> game : play ()
+loop heapsize > 0
+game -> human : takeTurn ( heapSize )
+loop move < 1 || move > 3 || move > heapSize
+human -> scanner : nextInt ()
+scanner --> human : move
+end
+human --> game : move
+game -> game : heapSize -= move
+alt heapSize == 0
+game -> human : getName()
+human -> game : name
+game -> User : " You lose ! "
+end
+end
+@enduml
+
+
+
+//Séquence avec stratégie intelligente
+@startuml
+actor User
+participant " NimGame " as game
+participant " SmartComputerPlayer " as smartComputer
+User -> game : play ()
+loop heapsize > 0
+game -> smartComputer : takeTurn ( heapSize )
+smartComputer -> smartComputer : calculateWinningMove ( heapSize )
+smartComputer --> game : move
+game -> game : heapSize -= move
+game -> game : currentPlayerIndex = (currentPlayerIndex + 1) % players.length
+end
+@enduml
