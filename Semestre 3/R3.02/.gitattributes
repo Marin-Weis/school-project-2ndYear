@@ -1,0 +1,12 @@
+# Exclude generated files from language statistics
+*.html linguist-detectable=false
+*.css linguist-detectable=false
+*.js linguist-detectable=false
+docs/** linguist-detectable=false
+javadoc/** linguist-detectable=false
+bin/** linguist-detectable=false
+out/** linguist-detectable=false
+target/** linguist-detectable=false
+
+# Ensure Java source is detected properly
+*.java linguist-language=Java
