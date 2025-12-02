@@ -1,0 +1,15 @@
+@startuml state
+
+[*] --> idle 
+
+state Idle as idle 
+state Waiting_for_money as wait
+state Dispensing_item as dispensing 
+state Out_of_order as out 
+
+idle --> dispensing : balance >= itemPrice
+idle --> wait : balance < itemPrice
+
+@enduml
+
+

@@ -1,0 +1,38 @@
+@startuml
+[*] --> system 
+
+state "En Panne" as panne
+state "Clignotant Orange" as urgence
+state timerOut 
+
+state system {
+    
+    state feuxVoiture {
+        state "Rouge" as rouge 
+        state "Vert" as vert 
+        state "Orange" as orange
+        
+        [*] --> rouge 
+        rouge --> vert : timer == 60s
+        vert --> orange : timer == 45s
+        orange --> rouge : timer == 5s
+    }
+    
+    state feuxPietons {
+        state "Rouge" as go 
+        state "Vert" as stop 
+        
+        [*] --> go
+        go --> stop : timer == 60s
+        stop --> go : timer == 50s
+    }
+}
+
+system --> urgence : emergencyActivated
+system --> timerOut : timerErreur
+system --> panne : fireOut
+
+timerOut --> urgence : emergencyActivated
+
+urgence --> system : emergencyDesactivated
+@enduml
