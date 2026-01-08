@@ -1,0 +1,32 @@
+/*
+Exercice 1 : Diagramme d'activités UML
+Marin Weis
+BUT2 R3.04 TD4
+Groupe C1
+*/
+@startuml
+
+|Client|
+start 
+: Selectionne un produit ;
+: Valide le panier ;
+
+|System|
+: Vérifie la disponibilité;
+if(Disponible ?) then(oui)
+    :Commannde confirmé; 
+else (non)
+    :Afficher Erreur;
+endif
+
+|Client|
+repeat 
+    :Saisi ses informations de paiement; 
+    :Vérifier paiement;
+repeat while(Paiement Invalide ?)
+
+:Paiement Validé;
+:Commande Expedié;
+
+stop 
+@enduml

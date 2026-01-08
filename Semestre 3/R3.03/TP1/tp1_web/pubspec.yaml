@@ -59,9 +59,8 @@ flutter:
   uses-material-design: true
 
   assets : 
-      - assets/sons/Son1.wav
-      - assets/sons/Son2.wav
-      - assets/sons/Son3.wav
+      - assets/images/
+      - assets/sons/
 
   # To add assets to your application, add an assets section, like this:
   # assets:

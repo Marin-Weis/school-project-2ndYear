@@ -1,3 +1,9 @@
+/**
+ * Exercice 2
+ * Marin Weis
+ * R3.04 TD3
+ * Groupe : C1
+ */
 public class VendingMachine {
     private enum State {
         IDLE, WAITING_FOR_MONEY, DISPENSING_ITEM, OUT_OF_ORDER

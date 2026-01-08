@@ -1,0 +1,39 @@
+/*
+Exercice 3 : Diagramme d'activités UML
+Marin Weis 
+BUT2 R3.04 TD4
+Groupe C1
+*/
+@startuml
+|Utilisateur|
+start
+:Connexion / Enregistrement;
+
+if (Authentifié ?) then (oui)
+    :Demande de réservation;
+
+    |Système|
+    :Vérifier disponibilité;
+
+    if (Salle disponible ?) then (oui)
+        :Envoyer notification "Salle disponible";
+
+        :Effectuer paiement;
+
+        if (Paiement accepté ?) then (oui)
+            :Confirmer réservation;
+            :Envoyer notification "Réservation confirmée !";
+        else (non)
+            :Envoyer notification "Paiement refusé. Réservation annulée";
+        endif
+
+    else (non)
+        :Envoyer notification "Salle non disponible";
+    endif
+
+else (non)
+    :Afficher erreur de connexion;
+endif
+
+stop
+@enduml

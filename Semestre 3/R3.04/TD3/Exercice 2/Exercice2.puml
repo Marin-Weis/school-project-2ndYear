@@ -1,15 +1,52 @@
-@startuml state
+/*
+Exercice 2
+Marin Weis
+R3.04 TD3
+Groupe : C1
+*/
+@startuml
 
-[*] --> idle 
+[*] --> Distributeur
 
-state Idle as idle 
-state Waiting_for_money as wait
-state Dispensing_item as dispensing 
-state Out_of_order as out 
+state OUT_OF_ORDER
+state OUT_OF_STOCK
 
-idle --> dispensing : balance >= itemPrice
-idle --> wait : balance < itemPrice
+state Distributeur {
+
+    state Fonctionnement {
+
+        state SELECTING_ITEM
+        state IDLE
+        state WAITING_FOR_MONEY
+        state DISPENSING_ITEM
+
+        [*] --> SELECTING_ITEM
+
+        SELECTING_ITEM --> IDLE : selectItem()\n[stock > 0]
+        SELECTING_ITEM --> OUT_OF_STOCK : [stock == 0]
+
+        IDLE --> WAITING_FOR_MONEY : insertMoney\n[balance < itemPrice && stock > 0]
+        IDLE --> DISPENSING_ITEM : insertMoney\n[balance >= itemPrice && stock > 0]
+        IDLE --> DISPENSING_ITEM : payWithCard()\n[stock > 0]
+
+        WAITING_FOR_MONEY --> WAITING_FOR_MONEY : insertMoney\n[balance < itemPrice]
+        WAITING_FOR_MONEY --> DISPENSING_ITEM : insertMoney\n[balance >= itemPrice && stock > 0]
+
+        WAITING_FOR_MONEY --> IDLE : cancelTransaction()
+
+        DISPENSING_ITEM : do / stock-- 
+        DISPENSING_ITEM --> WAITING_FOR_MONEY : dispenseItem\n[balance > 0]
+        DISPENSING_ITEM --> IDLE : dispenseItem\n[balance == 0]
+
+        IDLE --> OUT_OF_STOCK : [stock == 0]
+        WAITING_FOR_MONEY --> OUT_OF_STOCK : [stock == 0]
+        DISPENSING_ITEM --> OUT_OF_STOCK : [stock == 0]
+    }
+}
+
+Distributeur --> OUT_OF_ORDER : setOutOfOrder()
+OUT_OF_ORDER --> Distributeur : resetMachine()
+
+OUT_OF_STOCK --> Distributeur : refillStock()
 
 @enduml
-
-

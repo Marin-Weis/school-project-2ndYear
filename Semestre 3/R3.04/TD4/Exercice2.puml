@@ -1,0 +1,30 @@
+/*
+Exercice 2 : Diagramme d'activités UML
+Marin Weis
+BUT2 R3.04 TD4
+Groupe C1
+*/
+@startuml
+
+|Employé|
+start
+:Rédige une demande de congé ;
+
+|Manager|
+:Reçoit la demande de congé ;
+:Évaluation de la demande de congé ;
+
+if (Demande validée ?) then (non)
+    :Refus de la demande de congé ;
+    |Employé|
+    :Consulte le refus ;
+    :Peut modifier la demande ;
+else (oui)
+    :Envoie de la demande au service RH ;
+endif
+
+|Ressources Humaines|
+:Traitement de la demande ;
+
+stop
+@enduml

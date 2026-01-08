@@ -26,41 +26,57 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final AudioPlayer player = AudioPlayer();
     return Scaffold(
       appBar: AppBar(title: const Text("TP1-Web")),
       body: Center(
-        child: Container(
+        child: SingleChildScrollView(
           child: Column(
             children: [
               Text(
                 "Jouer de la batterie avec Flutter !!",
                 style: const TextStyle(fontSize: 24),
               ),
-              const SizedBox(height: 40),
-              //Ajout d'un bouton pour jouer un son de batterie
-              ElevatedButton(
-                onPressed: () {
-                  final AudioPlayer player = AudioPlayer();
-                  player.play(AssetSource('sons/Son1.wav'));
+              const SizedBox(height : 40),
+              InkWell(
+                onTap : () {
+                  player.play(AssetSource('sons/kick.mp3'));
                 },
-                child: const Text("Batterie 1"),
+                child: Image.asset(
+                  'assets/images/kick.png',
+                  width: 200,
+                )
               ),
-              const SizedBox(height: 40),
-              ElevatedButton(
-                onPressed: () {
-                  final AudioPlayer player = AudioPlayer();
-                  player.play(AssetSource('sons/Son2.wav'));
+              const SizedBox(height : 40),
+              InkWell(
+                onTap : () {
+                  player.play(AssetSource('sons/caisse_claire.wav'));
                 },
-                child: const Text("Batterie 2"),
+                child: Image.asset(
+                  'assets/images/caisse_claire.png',
+                  width: 200,
+                )
               ),
-              const SizedBox(height: 40),
-              ElevatedButton(
-                onPressed: () {
-                  final AudioPlayer player = AudioPlayer();
-                  player.play(AssetSource('sons/Son3.wav'));
+              const SizedBox(height : 40),
+              InkWell(
+                onTap : () {
+                  player.play(AssetSource('sons/charleston.wav'));
                 },
-                child: const Text("Batterie 3"),
+                child: Image.asset(
+                  'assets/images/charleston.png',
+                  width: 200,
+                )
               ),
+              const SizedBox(height : 40),
+              InkWell(
+                onTap : () {
+                  player.play(AssetSource('sons/ride.wav'));
+                },
+                child: Image.asset(
+                  'assets/images/ride.webp',
+                  width: 200,
+                )
+              )
             ],
           ),
         ),

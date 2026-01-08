@@ -14,15 +14,13 @@ services:
       - app_network
 
   app:
-    build: ./tp1jdbc/
+    build: .
     depends_on:
       - db
-    environment:
-      DB_URL: jdbc:postgresql://db:5432/banque_db
-      DB_USER: user
-      DB_PASSWORD: password
     networks:
       - app_network
+    env_file:
+      - .env
 
 networks:
   app_network:
